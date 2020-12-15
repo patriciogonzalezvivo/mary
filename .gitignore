@@ -1,0 +1,7 @@
+.DS_Store
+*.pyc
+*.so
+build/*
+cbuild/*
+hilma_wrap.cxx
+hilma.py
