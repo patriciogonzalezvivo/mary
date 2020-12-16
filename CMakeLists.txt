@@ -53,7 +53,7 @@ message(STATUS "Found GPS: ${GPS_LIBRARY}")
 find_package (Threads)
 
 # RPLIDAR DRIVER
-set(RPLIDAR_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/include/mary/lidar/rplidar_sdk")
+set(RPLIDAR_SDK_PATH "${CMAKE_CURRENT_SOURCE_DIR}/deps/rplidar_sdk")
 FILE(GLOB RPLIDAR_SDK_SRC 
     "${RPLIDAR_SDK_PATH}/src/arch/linux/*.cpp"
     "${RPLIDAR_SDK_PATH}/src/hal/*.cpp"
@@ -102,15 +102,15 @@ target_link_libraries(mary PUBLIC
     ${GPS_LIBRARY} ${CMAKE_THREAD_LIBS_INIT} 
 )
 
-# Testing only available if this is the main app
-# Emergency override MODERN_CMAKE_BUILD_TESTING provided as well
-if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING) AND BUILD_TESTING)
-    add_subdirectory(tests)
-endif()
+# # Testing only available if this is the main app
+# # Emergency override MODERN_CMAKE_BUILD_TESTING provided as well
+# if((CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME OR MODERN_CMAKE_BUILD_TESTING) AND BUILD_TESTING)
+#     add_subdirectory(tests)
+# endif()
 
 
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
-    # add_subdirectory(tests)
+    add_subdirectory(tests)
 
     install(TARGETS ${PROJECT_NAME} DESTINATION lib)
     install(FILES ${MARY_ROOT_HEADER} DESTINATION include/mary)
