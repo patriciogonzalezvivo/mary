@@ -1,4 +1,4 @@
-#include "Celestron.h"
+#include "mary/drivers/mount/Celestron.h"
 
 #include <math.h>
 #include <fcntl.h>
@@ -14,8 +14,8 @@
 #include <map>
 #include <string>
 
-#include "tools/timeOps.h"
-#include "tools/textOps.h"
+#include "mary/tools/timeOps.h"
+#include "mary/tools/textOps.h"
 
 #include <signal.h>
 bool ctrl_c_pressed;

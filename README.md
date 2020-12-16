@@ -9,6 +9,7 @@ DESCRIPTION
 Dependencies:
 
 * CMake, Swig and Python3
+* [GLM](https://github.com/g-truc/glm) required
 
 ## Compile and install Mary
 
@@ -16,10 +17,10 @@ Dependencies:
 
 ```bash
 // In linux
-sudo apt install cmake swig python3-numpy
+sudo apt install libglm-dev cmake swig python3-numpy
 
 // In MacOS
-brew install cmake swig
+brew install glm cmake swig
 ```
 
 2. Then compile

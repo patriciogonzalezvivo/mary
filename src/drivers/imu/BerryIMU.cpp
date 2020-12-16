@@ -1,14 +1,14 @@
-#include "BerryIMU.h"
+#include "mary/drivers/imu/BerryIMU.h"
 
 #include <sys/stat.h>
 #include <stdint.h>
 #include <fcntl.h>
 
-#include "tools/timeOps.h"
+#include "mary/tools/timeOps.h"
 
-#include "berry/i2c-dev.h"
-#include "berry/LSM9DS0.h"
-#include "berry/LSM9DS1.h"
+#include "mary/drivers/imu/berry/i2c-dev.h"
+#include "mary/drivers/imu/berry/LSM9DS0.h"
+#include "mary/drivers/imu/berry/LSM9DS1.h"
 
 #define DT 0.2          // [s/loop] loop period.  0.2  = 200ms
 #define AA 0.97         // complementary filter constant

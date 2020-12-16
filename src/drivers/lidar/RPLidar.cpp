@@ -1,4 +1,5 @@
-#include "RPLidar.h"
+#include "mary/drivers/lidar/RPLidar.h"
+#include "rplidar.h"
 
 #include <fstream>
 #include <iostream>
@@ -7,6 +8,8 @@
 #ifndef _countof
 #define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))
 #endif
+
+using namespace rp::standalone::rplidar;
 
 bool checkRPLIDARHealth(RPlidarDriver * _drv, bool _verbose) {
     u_result     op_result;
@@ -74,15 +77,15 @@ bool RPLidar::connect(const char* _portName, bool _verbose) {
         if (!m_driver)
             m_driver = RPlidarDriver::CreateDriver(DRIVER_TYPE_SERIALPORT);
 
-        if (IS_OK(m_driver->connect(_portName, baudrateArray[i]))) {
-            op_result = m_driver->getDeviceInfo(devinfo);
+        if (IS_OK(((RPlidarDriver*)m_driver)->connect(_portName, baudrateArray[i]))) {
+            op_result = ((RPlidarDriver*)m_driver)->getDeviceInfo(devinfo);
 
             if (IS_OK(op_result)) {
                 connectSuccess = true;
                 break;
             }
             else {
-                delete m_driver;
+                delete ((RPlidarDriver*)m_driver);
                 m_driver = NULL;
             }
         }
@@ -108,13 +111,13 @@ bool RPLidar::connect(const char* _portName, bool _verbose) {
             printFirmware();
 
         // check health...
-        if (!checkRPLIDARHealth(m_driver, _verbose)) {
+        if (!checkRPLIDARHealth(((RPlidarDriver*)m_driver), _verbose)) {
             std::cerr << "Something went wrong with RPLiDAR health. Disconnecting" << std::endl;
             disconnect();
         }
 
         if (m_driver)
-            m_driver->startMotor();
+            ((RPlidarDriver*)m_driver)->startMotor();
     }
 
     return m_connected;
@@ -126,8 +129,8 @@ void RPLidar::disconnect() {
     if (m_driver == NULL)
         return;
 
-    m_driver->stopMotor();
-    RPlidarDriver::DisposeDriver(m_driver);
+    ((RPlidarDriver*)m_driver)->stopMotor();
+    RPlidarDriver::DisposeDriver(((RPlidarDriver*)m_driver));
     m_driver = NULL;
 }
 
@@ -136,7 +139,7 @@ bool RPLidar::printFirmware() {
         return false;
 
     rplidar_response_device_info_t devinfo;
-    u_result op_result = m_driver->getDeviceInfo(devinfo);
+    u_result op_result = ((RPlidarDriver*)m_driver)->getDeviceInfo(devinfo);
 
     if (IS_OK(op_result)) {
         std::cout << "RPLIDAR S/N: ";
@@ -162,7 +165,7 @@ bool RPLidar::start(bool _verbose) {
     if (_verbose)
         std::cout << "Start collecting LiDAR data" << std::endl;
 
-    m_driver->startScan(0,1);
+    ((RPlidarDriver*)m_driver)->startScan(0,1);
     return true;
 }
 
@@ -170,7 +173,7 @@ bool RPLidar::stop(bool _verbose) {
     if (m_driver == NULL)
         return false;
 
-    m_driver->stop();
+    ((RPlidarDriver*)m_driver)->stop();
     return true;
 }
 
@@ -178,16 +181,17 @@ bool RPLidar::stop(bool _verbose) {
 bool RPLidar::getSamples(LidarSample* _samples, size_t& _count) {
     if (m_driver == NULL)
         return false;
-        
-    _count = _countof(m_nodes);
-    u_result op_result = m_driver->grabScanDataHq(m_nodes, _count);
+
+    rplidar_response_measurement_node_hq_t nodes[RPLIDAR_MAXSAMPLES];
+    _count = _countof(nodes);
+    u_result op_result = ((RPlidarDriver*)m_driver)->grabScanDataHq(nodes, _count);
     if (IS_OK(op_result)) {
         // std::cout << "got Hq data" << std::endl;
-        m_driver->ascendScanData(m_nodes, _count);
+        ((RPlidarDriver*)m_driver)->ascendScanData(nodes, _count);
         for (size_t i = 0; i < _count ; ++i) {
-            _samples[i].theta = m_nodes[i].angle_z_q14 * 90.f / (1 << 14); 
-            _samples[i].distance = m_nodes[i].dist_mm_q2 / 1000.f / (1 << 2); // Meters
-            // char quality = m_nodes[i].quality;
+            _samples[i].theta = nodes[i].angle_z_q14 * 90.f / (1 << 14); 
+            _samples[i].distance = nodes[i].dist_mm_q2 / 1000.f / (1 << 2); // Meters
+            // char quality = nodes[i].quality;
         }
         return true;
     }
