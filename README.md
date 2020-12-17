@@ -3,10 +3,40 @@
 
 [![Build Status](https://travis-ci.org/patriciogonzalezvivo/mary.svg?branch=master)](https://travis-ci.org/patriciogonzalezvivo/mary)
 
+Mary is a library of drivers for a variety of sensors and controlers related to GIS. 
+Please get in touch if you have a particular hardware you want to add su solupport to.
 
-DESCRIPTION
+Supported **LiDAR Sensors**:
 
-Dependencies:
+| Manufacture | Device | Driver | Range | Outdoors | Angle Resolution |
+| ------------- | ------------- | ------------- | ------------- | ------------- | ------------- |
+| SLAMTECH      | [RPLidar A1](https://www.slamtec.com/en/Lidar/A1) | `lidar/RPLidar.h` | 12m | no | non applicalbe | 
+| SLAMTECH      | [RPLidar A2](https://www.slamtec.com/en/Lidar/A2) | `lidar/RPLidar.h` | 18m | no | 0.45° ~ 1.35° |
+| SLAMTECH      | [RPLidar A3](https://www.slamtec.com/en/Lidar/A3) | `lidar/RPLidar.h` | 25m / 16m (in/outdoors) | yes | 0.3375° / 0.54° |
+| SLAMTECH      | [RPLidar S1](https://www.slamtec.com/en/Lidar/S1) | `lidar/RPLidar.h` | 40m | yes | 0.391° |
+
+Supported **Mounts**: 
+
+| Manufacture | Device | Driver | 
+| ------------- | ------------- | ------------- | 
+| Celestron     | [NexStar STL Series](https://s3.amazonaws.com/celestron-site-support-files/support_files/NexStar_SLT_manual.pdf) | `mount/Celestron.h` |
+| Celestron     | [NexStar STL Series](https://s3.amazonaws.com/celestron-site-support-files/support_files/NexStar_SLT_manual.pdf) | `mount/Celestron.h` |
+| TBD           | TBD | TBD | 
+
+Supported **GPS**:
+
+| Manufacture | Device |
+| ------------- | ------------- |
+|  *  | All deviced supported by Gpsd |
+
+Supported **Magnetometers**:
+
+| Manufacture | Device |
+| ------------- | ------------- |
+| OzzMaker | [BerryIMU](https://ozzmaker.com/product/berryimu-accelerometer-gyroscope-magnetometer-barometricaltitude-sensor/) |
+| OzzMaker | [BerryGPS-IMU](https://ozzmaker.com/product/berrygps-imu/) |
+
+## Dependencies
 
 * CMake, Swig and Python3
 * [GLM](https://github.com/g-truc/glm) required
