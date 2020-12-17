@@ -3,7 +3,7 @@
 #include <sstream>
 #include <unistd.h>
 
-#include "mary/drivers/gps/Gpsd.h"
+#include "mary/gps/Gpsd.h"
 #include "mary/tools/timeOps.h"
 
 int main(int argc, char **argv){

@@ -1,4 +1,4 @@
-#include "mary/drivers/gps/Gpsd.h"
+#include "mary/gps/Gpsd.h"
 #include <iostream>
 
 #ifndef GPS_WAITING_TIME

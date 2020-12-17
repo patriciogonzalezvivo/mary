@@ -1,4 +1,4 @@
-#include "mary/drivers/lidar/RPLidar.h"
+#include "mary/lidar/RPLidar.h"
 #include "rplidar.h"
 
 #include <fstream>

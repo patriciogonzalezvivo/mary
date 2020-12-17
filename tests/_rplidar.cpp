@@ -3,7 +3,7 @@
 #include <sstream>
 #include <unistd.h>
 
-#include "mary/drivers/lidar/RPLidar.h"
+#include "mary/lidar/RPLidar.h"
 
 #ifndef _countof
 #define _countof(_Array) (int)(sizeof(_Array) / sizeof(_Array[0]))

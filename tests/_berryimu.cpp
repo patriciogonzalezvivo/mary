@@ -3,7 +3,7 @@
 #include <sstream>
 #include <unistd.h>
 
-#include "mary/drivers/imu/BerryIMU.h"
+#include "mary/imu/BerryIMU.h"
 
 #include "mary/tools/timeOps.h"
 #include "mary/tools/textOps.h"

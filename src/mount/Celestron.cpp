@@ -1,4 +1,4 @@
-#include "mary/drivers/mount/Celestron.h"
+#include "mary/mount/Celestron.h"
 
 #include <math.h>
 #include <fcntl.h>

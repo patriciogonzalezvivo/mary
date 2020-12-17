@@ -71,18 +71,16 @@ SET( MARY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include )
 
 file(GLOB MARY_ROOT_HEADER "${MARY_INCLUDE_DIR}/mary/*.h")
 file(GLOB MARY_TOOLS_HEADER "${MARY_INCLUDE_DIR}/mary/tools/*.h")
-file(GLOB MARY_DRIVERS_HEADER "${MARY_INCLUDE_DIR}/mary/drivers/*.h")
-file(GLOB MARY_GPS_HEADER "${MARY_INCLUDE_DIR}/mary/drivers/gps/*.h")
-file(GLOB MARY_IMU_HEADER "${MARY_INCLUDE_DIR}/mary/drivers/imu/*.h")
-file(GLOB MARY_MOUNT_HEADER "${MARY_INCLUDE_DIR}/mary/drivers/mount/*.h")
-file(GLOB MARY_LIDAR_HEADER "${MARY_INCLUDE_DIR}/mary/drivers/lidar/*.h")
-file(GLOB MARY_LIDAR_HEADER "${MARY_INCLUDE_DIR}/mary/drivers/lidar/*.h")
+file(GLOB MARY_GPS_HEADER "${MARY_INCLUDE_DIR}/mary/gps/*.h")
+file(GLOB MARY_IMU_HEADER "${MARY_INCLUDE_DIR}/mary/imu/*.h")
+file(GLOB MARY_MOUNT_HEADER "${MARY_INCLUDE_DIR}/mary/mount/*.h")
+file(GLOB MARY_LIDAR_HEADER "${MARY_INCLUDE_DIR}/mary/lidar/*.h")
 
 SET( MARY_SOURCE
-    ${MARY_SOURCE_DIR}/drivers/gps/Gpsd.cpp
-    ${MARY_SOURCE_DIR}/drivers/imu/BerryIMU.cpp 
-    ${MARY_SOURCE_DIR}/drivers/lidar/RPLidar.cpp 
-    ${MARY_SOURCE_DIR}/drivers/mount/Celestron.cpp 
+    ${MARY_SOURCE_DIR}/gps/Gpsd.cpp
+    ${MARY_SOURCE_DIR}/imu/BerryIMU.cpp 
+    ${MARY_SOURCE_DIR}/lidar/RPLidar.cpp 
+    ${MARY_SOURCE_DIR}/mount/Celestron.cpp 
 )
 
 message(STATUS "add_library")
@@ -108,16 +106,14 @@ target_link_libraries(mary PUBLIC
 #     add_subdirectory(tests)
 # endif()
 
-
 if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     add_subdirectory(tests)
 
     install(TARGETS ${PROJECT_NAME} DESTINATION lib)
     install(FILES ${MARY_ROOT_HEADER} DESTINATION include/mary)
     install(FILES ${MARY_TOOLS_HEADER} DESTINATION include/mary/tools)
-    install(FILES ${MARY_DRIVERS_HEADER} DESTINATION include/mary/drivers)
-    install(FILES ${MARY_GPS_HEADER} DESTINATION include/mary/drivers/gps)
-    install(FILES ${MARY_IMU_HEADER} DESTINATION include/mary/drivers/imu)
-    install(FILES ${MARY_LIDAR_HEADER} DESTINATION include/mary/drivers/lidar)
-    install(FILES ${MARY_MOUNT_HEADER} DESTINATION include/mary/drivers/mount)
+    install(FILES ${MARY_GPS_HEADER} DESTINATION include/mary/gps)
+    install(FILES ${MARY_IMU_HEADER} DESTINATION include/mary/imu)
+    install(FILES ${MARY_LIDAR_HEADER} DESTINATION include/mary/lidar)
+    install(FILES ${MARY_MOUNT_HEADER} DESTINATION include/mary/mount)
 endif()

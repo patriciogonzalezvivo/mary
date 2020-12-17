@@ -3,7 +3,7 @@
 #include <sstream>
 #include <unistd.h>
 
-#include "mary/drivers/mount/Celestron.h"
+#include "mary/mount/Celestron.h"
 
 int main(int argc, char **argv){
     char* port = NULL;
