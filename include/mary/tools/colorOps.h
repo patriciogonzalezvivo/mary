@@ -9,6 +9,10 @@ inline float saturate(float value) {
     return std::max (0.0f, std::min (1.0f, value)); 
 }
 
+inline std::uint32_t packColor( std::uint8_t r, std::uint8_t g, std::uint8_t b ) {
+    return ((std::uint32_t)r << 16 | (std::uint32_t)g << 8 | (std::uint32_t)b);
+}
+
 inline void hue2rgb(float _hue, unsigned char& _r, unsigned char& _g, unsigned char& _b ) {
     float r = saturate( abs( fmod( _hue * 6., 6.) - 3.) - 1. );
     float g = saturate( abs( fmod( _hue * 6. + 4., 6.) - 3.) - 1. );

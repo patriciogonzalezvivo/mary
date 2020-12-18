@@ -191,7 +191,7 @@ bool RPLidar::getSamples(LidarSample* _samples, size_t& _count) {
         for (size_t i = 0; i < _count ; ++i) {
             _samples[i].theta = nodes[i].angle_z_q14 * 90.f / (1 << 14); 
             _samples[i].distance = nodes[i].dist_mm_q2 / 1000.f / (1 << 2); // Meters
-            // char quality = nodes[i].quality;
+            _samples[i].quality = (int)nodes[i].quality / 255.0f;
         }
         return true;
     }

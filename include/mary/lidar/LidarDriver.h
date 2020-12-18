@@ -9,6 +9,7 @@ enum LidarType {
 struct LidarSample {
     float theta;
     float distance;
+    float quality;
 };
 
 class LidarDriver : public Driver {
